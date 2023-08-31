@@ -14,6 +14,7 @@ namespace PhraseStrings.Api.Services
 
         private IProjectService? _projects;
         private ITranslationService? _translations;
+        private IKeyService? _keys;
 
         public PhraseClient(string apiToken, bool europeanDataCenter = true)
         {
@@ -34,6 +35,8 @@ namespace PhraseStrings.Api.Services
         public IProjectService Projects => _projects ??= new ProjectService(_httpClient, _jsonSerializerOptions);
 
         public ITranslationService Translations => _translations ??= new TranslationService(_httpClient, _jsonSerializerOptions);
+
+        public IKeyService Keys => _keys ??= new KeyService(_httpClient, _jsonSerializerOptions);
     }
 
 }

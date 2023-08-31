@@ -6,8 +6,12 @@ Api for Phrase Strings solution
 .Net Library for interfacing with [Phrase Strings](https://phrase.com/) api
 
 Supported functions for now :
-- Get Projects
-- Get Translations
+- Projects
+   - GetAll
+- Translations
+   - GetAll 
+- Keys
+   - GetAll 
 
 ## Get startred
 Get an API key (Token) from your Phrase account
