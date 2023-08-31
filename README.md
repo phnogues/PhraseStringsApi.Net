@@ -12,6 +12,7 @@ Supported functions for now :
    - GetAll 
 - Keys
    - GetAll 
+   - GetById
 
 ## Get startred
 Get an API key (Token) from your Phrase account

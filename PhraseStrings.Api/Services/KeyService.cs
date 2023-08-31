@@ -16,4 +16,11 @@ internal class KeyService : BaseService, IKeyService
 
         return result;
     }
+
+    public async Task<Key?> GetById(string projectId, string keyId)
+    {
+        var result = await GetAsync<Key>($"projects/{projectId}/keys/{keyId}");
+
+        return result;
+    }
 }
