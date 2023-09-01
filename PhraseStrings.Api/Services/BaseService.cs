@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PhraseStrings.Api.Services;
 
@@ -7,13 +9,17 @@ internal abstract class BaseService
     protected HttpClient HttpClient;
     protected JsonSerializerOptions JsonSerializerOptions;
 
-    internal BaseService(HttpClient httpClient, JsonSerializerOptions jsonSerializerOptions)
+    internal BaseService(HttpClient httpClient)
     {
         HttpClient = httpClient;
-        JsonSerializerOptions = jsonSerializerOptions;
+        JsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            Converters = { new JsonStringEnumMemberConverter() }
+        };
     }
 
-    protected async Task<TResult?> GetAsync<TResult>(string requestUri)
+    protected async Task<TResult?> Get<TResult>(string requestUri)
     {
         var result = await HttpClient.GetAsync(requestUri);
 
@@ -27,7 +33,7 @@ internal abstract class BaseService
         return JsonSerializer.Deserialize<TResult?>(json);
     }
 
-    protected async Task<TResult?> GetListAsync<TResult>(string requestUri)
+    protected async Task<TResult?> GetList<TResult>(string requestUri)
     {
         var result = await HttpClient.GetAsync(requestUri);
 
@@ -39,6 +45,23 @@ internal abstract class BaseService
 
         return model;
     }
+
+    protected async Task<TResult?> Post<TRequest, TResult>(string requestUri, TRequest request)
+    {
+        var requestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        {
+            Content = new StringContent(JsonSerializer.Serialize(request, JsonSerializerOptions), Encoding.UTF8, "application/json")
+        };
+        var result = await HttpClient.SendAsync(requestMessage);
+
+        HandleError(result);
+
+        var json = await result.Content.ReadAsStringAsync();
+        var model = JsonSerializer.Deserialize<TResult?>(json);
+
+        return model;
+    }
+
 
     private void HandleError(HttpResponseMessage responseMessage)
     {
@@ -52,6 +75,9 @@ internal abstract class BaseService
 
             case System.Net.HttpStatusCode.NotFound:
                 throw new Exception("NotFound, Please check your parameters (ProjectId)");
+
+            case System.Net.HttpStatusCode.UnprocessableEntity:
+                throw new Exception("UnprocessableEntity, Please check your content object, the item may already be used");
 
             default:
                 throw new Exception($"An error occured: {responseMessage.StatusCode}");

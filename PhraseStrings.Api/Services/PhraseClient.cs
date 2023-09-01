@@ -32,11 +32,11 @@ namespace PhraseStrings.Api.Services
             };
         }
 
-        public IProjectService Projects => _projects ??= new ProjectService(_httpClient, _jsonSerializerOptions);
+        public IProjectService Projects => _projects ??= new ProjectService(_httpClient);
 
-        public ITranslationService Translations => _translations ??= new TranslationService(_httpClient, _jsonSerializerOptions);
+        public ITranslationService Translations => _translations ??= new TranslationService(_httpClient);
 
-        public IKeyService Keys => _keys ??= new KeyService(_httpClient, _jsonSerializerOptions);
+        public IKeyService Keys => _keys ??= new KeyService(_httpClient);
     }
 
 }

@@ -4,7 +4,9 @@ namespace PhraseStrings.Api.Interfaces;
 
 public interface IKeyService
 {
-    public Task<List<Key>?> GetAll(string projectId);
+    Task<List<Key>?> GetAll(string projectId);
 
-    public Task<Key?> GetById(string projectId, string keyId);
+    Task<Key?> GetById(string projectId, string keyId);
+
+    Task<Key?> Add(string projectId, Key key);
 }

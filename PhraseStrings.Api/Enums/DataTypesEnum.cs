@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace PhraseStrings.Api.Enums;
 
 
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumMemberConverter))]
 [DefaultValue(NotDefined)]
 
 public enum DataTypesEnum

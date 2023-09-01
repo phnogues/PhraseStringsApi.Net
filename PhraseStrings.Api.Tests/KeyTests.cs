@@ -1,4 +1,6 @@
-﻿namespace PhraseStrings.Api.Tests;
+﻿using PhraseStrings.Api.Model;
+
+namespace PhraseStrings.Api.Tests;
 
 [TestClass]
 public class KeyTests : BaseTest
@@ -19,4 +21,23 @@ public class KeyTests : BaseTest
 
         Assert.IsTrue(result.Id == randomKey.Id);
     }
+
+    [TestMethod]
+    public async Task Add_ShouldReturnResult()
+    {
+        Key keyToAdd = new Key()
+        {
+            Name = "unit_test.key",
+            DataType = Enums.DataTypesEnum.String,
+        };
+
+        var result = await localizationClient.Keys.Add(ProjectTestId, keyToAdd);
+
+        // Delete the key we just added
+
+
+        Assert.IsTrue(result.Name == keyToAdd.Name);
+
+    }
+
 }
