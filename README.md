@@ -1,6 +1,6 @@
 # PhraseStringsApi.Net
 
-[![NuGet stable version](https://badgen.net/nuget/v/PhraseStrings.Api)](https://nuget.org/packages/PhraseStrings.Api)
+[![NuGet latest version](https://badgen.net/nuget/v/PhraseStrings.Api/latest)](https://nuget.org/packages/PhraseStrings.Api)
 
 Api for Phrase Strings solution
 
