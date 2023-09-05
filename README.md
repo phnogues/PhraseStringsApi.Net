@@ -8,6 +8,8 @@ Api for Phrase Strings solution
 Supported functions for now :
 - Projects
    - GetAll
+   - GetAll(wildcard query)
+   - GetByName
 - Translations
    - GetAll 
 - Keys

@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 
 namespace PhraseStrings.Api.Services;
 
@@ -62,6 +63,11 @@ internal abstract class BaseService
         return model;
     }
 
+    protected bool MatchesWildcard(string data, string wildcard)
+    {
+        var pattern = $"^{wildcard.Replace("*", ".*?")}$";
+        return Regex.IsMatch(data, pattern, RegexOptions.IgnoreCase);
+    }
 
     private void HandleError(HttpResponseMessage responseMessage)
     {
