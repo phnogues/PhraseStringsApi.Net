@@ -11,7 +11,7 @@ Supported functions for now :
    - GetAll(wildcard query)
    - GetByName
 - Translations
-   - GetAll 
+   - GetAll(projectId, perPage = 100, page) 
 - Keys
    - GetAll 
    - GetById
