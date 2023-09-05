@@ -1,4 +1,7 @@
 # PhraseStringsApi.Net
+
+[![NuGet stable version](https://badgen.net/nuget/v/PhraseStrings.Api)](https://nuget.org/packages/PhraseStrings.Api)
+
 Api for Phrase Strings solution
 
 <img src="/Phrase.png" width="100" height="100" />
