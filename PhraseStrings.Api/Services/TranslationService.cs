@@ -42,22 +42,21 @@ internal class TranslationService : BaseService, ITranslationService
 
     public async Task<List<Translation>?> GetByLocale(string projectId, string localeId)
     {
-        var result = await GetList<List<Translation>>($"projects/{projectId}/locales/{localeId}/translations");
+        return await GetList<List<Translation>>($"projects/{projectId}/locales/{localeId}/translations");
+    }
 
-        return result;
+    public async Task<List<Translation>?> GetByKey(string projectId, string keyId)
+    {
+        return await GetList<List<Translation>>($"projects/{projectId}/keys/{keyId}/translations");
     }
 
     public async Task<Translation?> Add(string projectId, TranslationRequest translation)
     {
-        var result = await Post<TranslationRequest, Translation>($"projects/{projectId}/translations", translation);
-
-        return result;
+        return await Post<TranslationRequest, Translation>($"projects/{projectId}/translations", translation);
     }
 
     public async Task<Translation?> Update(string projectId, string translationId, TranslationRequest translation)
     {
-        var result = await Patch<TranslationRequest, Translation>($"projects/{projectId}/translations/{translationId}", translation);
-
-        return result;
+        return await Patch<TranslationRequest, Translation>($"projects/{projectId}/translations/{translationId}", translation);
     }
 }

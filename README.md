@@ -19,6 +19,7 @@ Supported functions for now :
 - Translations
    - GetAll(projectId, perPage = 100, page) 
    - GetByLocale
+   - GetByKey
    - Add
    - Update
 - Keys

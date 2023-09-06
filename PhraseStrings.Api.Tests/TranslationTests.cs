@@ -14,6 +14,16 @@ public class TranslationTests : BaseTest
     }
 
     [TestMethod]
+    public async Task GetByKey_ShouldReturnResults()
+    {
+        var key = (await localizationClient.Keys.GetAll(ProjectTestId))[0];
+
+        var result = await localizationClient.Translations.GetByKey(ProjectTestId, key.Id);
+
+        Assert.IsTrue(key.Name == result[0].Key.Name);
+    }
+
+    [TestMethod]
     public async Task Add_Should_Insert_Record()
     {
         var locales = await localizationClient.Projects.GetLocales(ProjectTestId);
