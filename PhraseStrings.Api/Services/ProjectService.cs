@@ -1,7 +1,4 @@
-﻿using PhraseStrings.Api.Interfaces;
-using PhraseStrings.Api.Model;
-
-namespace PhraseStrings.Api.Services;
+﻿namespace PhraseStrings.Api.Services;
 
 internal class ProjectService : BaseService, IProjectService
 {
@@ -33,9 +30,23 @@ internal class ProjectService : BaseService, IProjectService
         return result?.FirstOrDefault(p => p.Name.Equals(projectName, StringComparison.InvariantCultureIgnoreCase));
     }
 
+    public async Task<Project?> Add(ProjectRequest project)
+    {
+        var result = await Post<ProjectRequest, Project>($"projects", project);
+
+        return result;
+    }
+
     public async Task<List<Locale>?> GetLocales(string projectId)
     {
         var result = await GetList<List<Locale>>($"projects/{projectId}/locales");
+
+        return result;
+    }
+
+    public async Task<Locale?> AddLocale(string projectId, LocaleRequest locale)
+    {
+        var result = await Post<LocaleRequest, Locale>($"projects/{projectId}/locales", locale);
 
         return result;
     }

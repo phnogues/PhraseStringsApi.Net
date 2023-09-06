@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PhraseStrings.Api.Interfaces;
 using PhraseStrings.Api.Services;
 
 namespace PhraseStrings.Api;

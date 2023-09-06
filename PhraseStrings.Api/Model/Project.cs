@@ -24,6 +24,9 @@ public class Project : AuditableEntity
 
     [JsonPropertyName("point_of_contact")]
     public PointOfContact PointOfContact { get; set; }
+
+    [JsonPropertyName("media")]
+    public string Media { get; set; }
 }
 
 public class Account : AuditableEntity

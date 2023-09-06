@@ -1,7 +1,4 @@
-﻿using PhraseStrings.Api.Interfaces;
-using PhraseStrings.Api.Model;
-
-namespace PhraseStrings.Api.Services;
+﻿namespace PhraseStrings.Api.Services;
 
 internal class KeyService : BaseService, IKeyService
 {

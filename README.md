@@ -13,8 +13,13 @@ Supported functions for now :
    - GetAll
    - GetAll(wildcard query)
    - GetByName
+   - Add
+   - GetLocales
+   - AddLocale
 - Translations
    - GetAll(projectId, perPage = 100, page) 
+   - GetByLocale
+   - Add
 - Keys
    - GetAll 
    - GetById

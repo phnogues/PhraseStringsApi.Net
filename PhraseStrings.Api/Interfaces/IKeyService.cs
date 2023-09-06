@@ -1,6 +1,4 @@
-﻿using PhraseStrings.Api.Model;
-
-namespace PhraseStrings.Api.Interfaces;
+﻿namespace PhraseStrings.Api.Interfaces;
 
 public interface IKeyService
 {

@@ -1,7 +1,4 @@
-﻿using PhraseStrings.Api.Interfaces;
-using PhraseStrings.Api.Model;
-
-namespace PhraseStrings.Api.Services;
+﻿namespace PhraseStrings.Api.Services;
 
 internal class TranslationService : BaseService, ITranslationService
 {
@@ -46,6 +43,13 @@ internal class TranslationService : BaseService, ITranslationService
     public async Task<List<Translation>?> GetByLocale(string projectId, string localeId)
     {
         var result = await GetList<List<Translation>>($"projects/{projectId}/locales/{localeId}/translations");
+
+        return result;
+    }
+
+    public async Task<Translation?> Add(string projectId, TranslationRequest translation)
+    {
+        var result = await Post<TranslationRequest, Translation>($"projects/{projectId}/translations", translation);
 
         return result;
     }
