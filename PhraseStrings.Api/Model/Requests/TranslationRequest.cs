@@ -20,11 +20,11 @@ public class TranslationRequest
     public string PluralSuffix { get; set; }
 
     [JsonPropertyName("unverified")]
-    public bool Unverified { get; set; }
+    public bool? Unverified { get; set; }
 
     [JsonPropertyName("excluded")]
-    public bool Excluded { get; set; }
+    public bool? Excluded { get; set; }
 
     [JsonPropertyName("autotranslate")]
-    public bool Autotranslate { get; set; }
+    public bool? Autotranslate { get; set; }
 }

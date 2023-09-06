@@ -20,6 +20,7 @@ Supported functions for now :
    - GetAll(projectId, perPage = 100, page) 
    - GetByLocale
    - Add
+   - Update
 - Keys
    - GetAll 
    - GetById

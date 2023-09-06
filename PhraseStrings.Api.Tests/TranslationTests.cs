@@ -19,14 +19,31 @@ public class TranslationTests : BaseTest
         var locales = await localizationClient.Projects.GetLocales(ProjectTestId);
         TranslationRequest translationToAdd = new TranslationRequest()
         {
-            KeyId = "test",
-            LocaleId = "en",
+            KeyId = "A key here",
+            LocaleId = locales.Where(l => l.Default).First().Id,
             Content = "test"
         };
 
-        var result = await localizationClient.Translations.Add("", translationToAdd);
+        var result = await localizationClient.Translations.Add(ProjectTestId, translationToAdd);
 
         Assert.IsTrue(result.Content == translationToAdd.Content);
+    }
+
+    [TestMethod]
+    public async Task Update_Should_Return_UpdatedRecord()
+    {
+        var locales = await localizationClient.Projects.GetLocales(ProjectTestId);
+        var translationToUpdate = (await localizationClient.Translations.GetAll(ProjectTestId)).First();
+        TranslationRequest translationRequest = new TranslationRequest()
+        {
+            KeyId = translationToUpdate.Key.Id,
+            LocaleId = locales.Where(l => l.Default).First().Id,
+            Content = "test updated 3"
+        };
+
+        var result = await localizationClient.Translations.Update(ProjectTestId, translationToUpdate.Id, translationRequest);
+
+        Assert.IsTrue(result.Content == translationRequest.Content);
     }
 }
 

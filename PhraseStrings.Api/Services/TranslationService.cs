@@ -53,4 +53,11 @@ internal class TranslationService : BaseService, ITranslationService
 
         return result;
     }
+
+    public async Task<Translation?> Update(string projectId, string translationId, TranslationRequest translation)
+    {
+        var result = await Patch<TranslationRequest, Translation>($"projects/{projectId}/translations/{translationId}", translation);
+
+        return result;
+    }
 }

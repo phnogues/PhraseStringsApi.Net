@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using PhraseStrings.Api.Utilities;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
@@ -63,10 +64,27 @@ internal abstract class BaseService
         return model;
     }
 
+    protected async Task<TResult?> Patch<TRequest, TResult>(string requestUri, TRequest request)
+    {
+        var data = request.ToPhraseDatasKeyValue();
+        var result = await HttpClient.PatchAsync(requestUri, new FormUrlEncodedContent(data));
+
+        HandleError(result);
+
+        return await HandleResult<TResult>(result);
+    }
+
     protected bool MatchesWildcard(string data, string wildcard)
     {
         var pattern = $"^{wildcard.Replace("*", ".*?")}$";
         return Regex.IsMatch(data, pattern, RegexOptions.IgnoreCase);
+    }
+
+    private async Task<TResult?> HandleResult<TResult>(HttpResponseMessage result)
+    {
+
+        var json = await result.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<TResult?>(json);
     }
 
     private void HandleError(HttpResponseMessage responseMessage)

@@ -17,7 +17,7 @@ public class Translation : AuditableEntity
     public string PluralSuffix { get; set; }
 
     [JsonPropertyName("key")]
-    public Key key { get; set; }
+    public Key Key { get; set; }
 
     [JsonPropertyName("placeholders")]
     public List<string> Placeholders { get; set; }

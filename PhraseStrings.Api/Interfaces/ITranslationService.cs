@@ -7,4 +7,6 @@ public interface ITranslationService
     public Task<List<Translation>?> GetByLocale(string projectId, string localeId);
 
     public Task<Translation?> Add(string projectId, TranslationRequest translation);
+
+    public Task<Translation?> Update(string projectId, string translationId, TranslationRequest translation);
 }
