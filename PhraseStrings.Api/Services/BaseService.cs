@@ -17,6 +17,7 @@ internal abstract class BaseService
         JsonSerializerOptions = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Converters = { new JsonStringEnumMemberConverter() }
         };
     }
