@@ -31,9 +31,7 @@ internal abstract class BaseService
 
         HandleError(result);
 
-        var json = await result.Content.ReadAsStringAsync();
-
-        return JsonSerializer.Deserialize<TResult?>(json);
+        return await HandleResult<TResult>(result);
     }
 
     protected async Task<TResult?> GetList<TResult>(string requestUri)
@@ -42,27 +40,30 @@ internal abstract class BaseService
 
         HandleError(result);
 
-        var json = await result.Content.ReadAsStringAsync();
-
-        var model = JsonSerializer.Deserialize<TResult>(json);
-
-        return model;
+        return await HandleResult<TResult>(result);
     }
 
-    protected async Task<TResult?> Post<TRequest, TResult>(string requestUri, TRequest request)
+    protected async Task<TResult?> Post<TRequest, TResult>(string requestUri, TRequest request, bool contentAsFormData = false)
     {
-        var requestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+        HttpResponseMessage result;
+
+        if (contentAsFormData)
         {
-            Content = new StringContent(JsonSerializer.Serialize(request, JsonSerializerOptions), Encoding.UTF8, "application/json")
-        };
-        var result = await HttpClient.SendAsync(requestMessage);
+            var data = request.ToPhraseDatasKeyValue();
+            result = await HttpClient.PostAsync(requestUri, new FormUrlEncodedContent(data));
+        }
+        else
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri)
+            {
+                Content = new StringContent(JsonSerializer.Serialize(request, JsonSerializerOptions), Encoding.UTF8, "application/json")
+            };
+            result = await HttpClient.SendAsync(requestMessage);
+        }
 
         HandleError(result);
 
-        var json = await result.Content.ReadAsStringAsync();
-        var model = JsonSerializer.Deserialize<TResult?>(json);
-
-        return model;
+        return await HandleResult<TResult>(result);
     }
 
     protected async Task<TResult?> Patch<TRequest, TResult>(string requestUri, TRequest request)
@@ -83,7 +84,6 @@ internal abstract class BaseService
 
     private async Task<TResult?> HandleResult<TResult>(HttpResponseMessage result)
     {
-
         var json = await result.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<TResult?>(json);
     }

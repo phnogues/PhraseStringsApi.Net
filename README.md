@@ -25,6 +25,8 @@ Supported functions for now :
 - Keys
    - GetAll 
    - GetById
+   - GetByName
+   - Search
    - Add 
 
 ## Get startred

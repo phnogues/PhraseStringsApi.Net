@@ -8,22 +8,32 @@ internal class KeyService : BaseService, IKeyService
 
     public async Task<List<Key>?> GetAll(string projectId)
     {
-        var result = await GetList<List<Key>>($"projects/{projectId}/keys");
-
-        return result;
+        return await GetList<List<Key>>($"projects/{projectId}/keys");
     }
 
     public async Task<Key?> GetById(string projectId, string keyId)
     {
-        var result = await Get<Key>($"projects/{projectId}/keys/{keyId}");
+        return await Get<Key>($"projects/{projectId}/keys/{keyId}");
+    }
 
-        return result;
+    public async Task<SearchKeyResult?> GetByName(string projectId, string keyName)
+    {
+        SearchKeyRequest searchKeyRequest = new SearchKeyRequest()
+        {
+            Query = keyName
+        };
+
+        var results = await Search(projectId, searchKeyRequest);
+        return results?.FirstOrDefault();
+    }
+
+    public async Task<List<SearchKeyResult>?> Search(string projectId, SearchKeyRequest searchKeyRequest)
+    {
+        return await Post<SearchKeyRequest, List<SearchKeyResult>>($"projects/{projectId}/keys/search", searchKeyRequest, contentAsFormData: true);
     }
 
     public async Task<Key?> Add(string projectId, Key key)
     {
-        var result = await Post<Key, Key>($"projects/{projectId}/keys", key);
-
-        return result;
+        return await Post<Key, Key>($"projects/{projectId}/keys", key);
     }
 }

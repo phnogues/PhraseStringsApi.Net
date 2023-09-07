@@ -23,6 +23,15 @@ public class KeyTests : BaseTest
     }
 
     [TestMethod]
+    public async Task GetByName_ShouldReturnResult()
+    {
+        var randomKey = (await localizationClient.Keys.GetAll(ProjectTestId))[0];
+        var result = await localizationClient.Keys.GetByName(ProjectTestId, randomKey.Name);
+
+        Assert.IsTrue(result.Id == randomKey.Id);
+    }
+
+    [TestMethod]
     public async Task Add_ShouldReturnResult()
     {
         Key keyToAdd = new Key()
@@ -35,9 +44,7 @@ public class KeyTests : BaseTest
 
         // Delete the key we just added
 
-
         Assert.IsTrue(result.Name == keyToAdd.Name);
-
     }
 
 }
