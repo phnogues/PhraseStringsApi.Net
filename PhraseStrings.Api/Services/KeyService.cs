@@ -24,7 +24,7 @@ internal class KeyService : BaseService, IKeyService
         };
 
         var results = await Search(projectId, searchKeyRequest);
-        return results?.FirstOrDefault();
+        return results?.Where(r => r.Name.Equals(keyName, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
     }
 
     public async Task<List<SearchKeyResult>?> Search(string projectId, SearchKeyRequest searchKeyRequest)
