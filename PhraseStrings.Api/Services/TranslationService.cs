@@ -11,7 +11,7 @@ internal class TranslationService : BaseService, ITranslationService
         string url = $"projects/{projectId}/translations?per_page={perPage}";
 
         List<Translation> results = new List<Translation>();
-        int maxPages = 100;
+        int maxPages = 10000;
 
         if (page.HasValue)
         {
