@@ -2,7 +2,7 @@
 
 public interface IProjectService
 {
-    public Task<List<Project>?> GetAll(string? q = null);
+    public Task<List<Project>?> GetAll(string? q = null, int perPage = 100, int? page = null);
 
     public Task<Project?> GetByName(string projectName);
 

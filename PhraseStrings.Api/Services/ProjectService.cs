@@ -11,16 +11,43 @@ internal class ProjectService : BaseService, IProjectService
     /// </summary>
     /// <param name="q">Search query, can contains wildcards (ex: projectOne*)</param>
     /// <returns></returns>
-    public async Task<List<Project>?> GetAll(string? q = null)
+    public async Task<List<Project>?> GetAll(string? q = null, int perPage = 100, int? page = null)
     {
-        var result = await GetList<List<Project>>($"projects");
+        string url = $"projects?per_page={perPage}";
 
-        if (!string.IsNullOrEmpty(q) && result is not null)
+        List<Project> results = new List<Project>();
+        int maxPages = 100;
+
+        if (page.HasValue)
         {
-            result = result.Where(x => MatchesWildcard(x.Name, q)).ToList();
+            return await GetList<List<Project>>($"{url}&page={page}");
+        }
+        else
+        {
+            // Phrase doesn't return the total number of pages, so we have to guess
+            page = 1;
+
+            while (page < maxPages)
+            {
+                var pageResults = await GetList<List<Project>>($"{url}&page={page}");
+                if (pageResults is not null && pageResults.Any())
+                {
+                    results.AddRange(pageResults);
+                    page++;
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
 
-        return result;
+        if (!string.IsNullOrEmpty(q) && results is not null)
+        {
+            results = results.Where(x => MatchesWildcard(x.Name, q)).ToList();
+        }
+
+        return results;
     }
 
     public async Task<Project?> GetByName(string projectName)
