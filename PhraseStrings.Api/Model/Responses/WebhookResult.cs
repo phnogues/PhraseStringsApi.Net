@@ -13,7 +13,7 @@ public class WebhookResult
     public string Message { get; set; }
 
     [JsonPropertyName("user")]
-    public User User { get; set; }
+    public User? User { get; set; }
 
     [JsonPropertyName("project")]
     public Project? Project { get; set; }
@@ -22,5 +22,5 @@ public class WebhookResult
     public Branch? Branch { get; set; }
 
     [JsonPropertyName("translation")]
-    public Translation Translation { get; set; }
+    public Translation? Translation { get; set; }
 }
