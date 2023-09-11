@@ -11,22 +11,22 @@ public class Project : AuditableEntity
     public string Slug { get; set; }
 
     [JsonPropertyName("main_format")]
-    public string MainFormat { get; set; }
+    public string? MainFormat { get; set; }
 
     [JsonPropertyName("project_image_url")]
-    public object ProjectImageUrl { get; set; }
+    public object? ProjectImageUrl { get; set; }
 
     [JsonPropertyName("account")]
-    public Account Account { get; set; }
+    public Account? Account { get; set; }
 
     [JsonPropertyName("space")]
-    public Space Space { get; set; }
+    public Space? Space { get; set; }
 
     [JsonPropertyName("point_of_contact")]
-    public PointOfContact PointOfContact { get; set; }
+    public PointOfContact? PointOfContact { get; set; }
 
     [JsonPropertyName("media")]
-    public string Media { get; set; }
+    public string? Media { get; set; }
 }
 
 public class Account : AuditableEntity

@@ -11,8 +11,8 @@ public class User : AuditableEntity
     public string Name { get; set; }
 
     [JsonPropertyName("email")]
-    public string Email { get; set; }
+    public string? Email { get; set; }
 
     [JsonPropertyName("position")]
-    public string Position { get; set; }
+    public string? Position { get; set; }
 }

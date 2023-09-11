@@ -20,7 +20,7 @@ public class Translation : AuditableEntity
     public Key Key { get; set; }
 
     [JsonPropertyName("placeholders")]
-    public List<string> Placeholders { get; set; }
+    public List<string>? Placeholders { get; set; }
 
     [JsonPropertyName("state")]
     public string State { get; set; }

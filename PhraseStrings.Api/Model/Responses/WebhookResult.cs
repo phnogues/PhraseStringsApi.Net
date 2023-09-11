@@ -16,10 +16,10 @@ public class WebhookResult
     public User User { get; set; }
 
     [JsonPropertyName("project")]
-    public Project Project { get; set; }
+    public Project? Project { get; set; }
 
     [JsonPropertyName("branch")]
-    public Branch Branch { get; set; }
+    public Branch? Branch { get; set; }
 
     [JsonPropertyName("translation")]
     public Translation Translation { get; set; }
