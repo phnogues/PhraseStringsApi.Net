@@ -28,3 +28,15 @@ public class Locale : AuditableEntity
     [JsonPropertyName("fallback_locale")]
     public object FallbackLocale { get; set; }
 }
+
+public class LocaleLight
+{
+    [JsonPropertyName("id")]
+    public string Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public string Name { get; set; }
+
+    [JsonPropertyName("code")]
+    public string Code { get; set; }
+}

@@ -8,10 +8,10 @@ public class Translation : AuditableEntity
     public string Content { get; set; }
 
     [JsonPropertyName("unverified")]
-    public bool Unverified { get; set; }
+    public bool? Unverified { get; set; }
 
     [JsonPropertyName("excluded")]
-    public bool Excluded { get; set; }
+    public bool? Excluded { get; set; }
 
     [JsonPropertyName("plural_suffix")]
     public string PluralSuffix { get; set; }
@@ -27,16 +27,4 @@ public class Translation : AuditableEntity
 
     [JsonPropertyName("locale")]
     public LocaleLight Locale { get; set; }
-}
-
-public class LocaleLight
-{
-    [JsonPropertyName("id")]
-    public string Id { get; set; }
-
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-
-    [JsonPropertyName("code")]
-    public string Code { get; set; }
 }

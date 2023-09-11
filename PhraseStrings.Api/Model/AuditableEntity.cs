@@ -8,9 +8,9 @@ public class AuditableEntity
     public string Id { get; set; }
 
     [JsonPropertyName("created_at")]
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     [JsonPropertyName("updated_at")]
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }
 

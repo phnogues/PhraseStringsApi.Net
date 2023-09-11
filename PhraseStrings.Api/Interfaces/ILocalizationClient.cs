@@ -7,5 +7,7 @@ public interface ILocalizationClient
     public ITranslationService Translations { get; }
 
     public IKeyService Keys { get; }
+
+    public IWebhookService Webhooks { get; }
 }
 

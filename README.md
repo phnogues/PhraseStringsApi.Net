@@ -28,6 +28,10 @@ Supported functions for now :
    - GetByName
    - Search
    - Add 
+- Webhooks
+   - GetAll
+   - Add
+   - ActionFilterAttribute to manage Phrase webhook request integrity
 
 ## Get startred
 Get an API key (Token) from your Phrase account
