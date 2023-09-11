@@ -1,19 +1,40 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace PhraseStrings.Api.ActionFilters;
 
+/// <summary>
+/// If you do not choose a secret, it will be searched in the 
+/// key vault or settings file with the key "Phrase:Secret". The setting key can be overridden
+/// </summary>
 public class PhraseApiHmacAuthenticationAttribute : ActionFilterAttribute
 {
     public string AuthenticationHeaderName { get; set; } = "X-PhraseApp-Signature";
 
-    public required string Secret { get; set; }
+    public string? Secret { get; set; }
+
+    public string SecretAppSettingKey { get; set; } = "Phrase:Secret";
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
+        // If no secret is defined, we can't authenticate
+        if (string.IsNullOrEmpty(Secret) && string.IsNullOrEmpty(SecretAppSettingKey))
+        {
+            throw new ArgumentNullException("Please define a secret key");
+        }
+
+        // If no secret is defined, we try to get it from the KeyVault or app settings
+        if (string.IsNullOrEmpty(Secret))
+        {
+            var config = context.HttpContext.RequestServices.GetService<IConfiguration>();
+            Secret = config[SecretAppSettingKey];
+        }
+
         bool isAuthenticated = IsAuthenticated(context);
 
         if (!isAuthenticated)
