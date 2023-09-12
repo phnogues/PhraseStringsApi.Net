@@ -31,6 +31,7 @@ Supported functions for now :
 - Webhooks
    - GetAll
    - Add
+   - Update
    - ActionFilterAttribute to manage Phrase webhook request integrity
 
 ## Get startred

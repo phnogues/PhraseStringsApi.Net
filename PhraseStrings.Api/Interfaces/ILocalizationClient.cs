@@ -2,12 +2,12 @@
 
 public interface ILocalizationClient
 {
-    public IProjectService Projects { get; }
+    IProjectService Projects { get; }
 
-    public ITranslationService Translations { get; }
+    ITranslationService Translations { get; }
 
-    public IKeyService Keys { get; }
+    IKeyService Keys { get; }
 
-    public IWebhookService Webhooks { get; }
+    IWebhookService Webhooks { get; }
 }
 

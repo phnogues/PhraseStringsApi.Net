@@ -1,5 +1,6 @@
 ﻿using PhraseStrings.Api.Enums;
 using PhraseStrings.Api.Model;
+using PhraseStrings.Api.Model.Requests;
 
 namespace PhraseStrings.Api.Tests;
 
@@ -29,5 +30,20 @@ public class WebhookTests : BaseTest
         var result = await localizationClient.Webhooks.Add(ProjectTestId, webhookToAdd);
 
         Assert.IsTrue(result.Description == webhookToAdd.Description);
+    }
+
+    [TestMethod]
+    public async Task Update_ShouldReturnResults()
+    {
+        Webhook webhookToUpdate = (await localizationClient.Webhooks.GetAll(ProjectTestId)).FirstOrDefault(w => w.Description.Contains("test"));
+
+        WebhookRequest webhookRequest = new WebhookRequest()
+        {
+            Description = "Unit Test Webhook Updated",
+        };
+
+        var result = await localizationClient.Webhooks.Update(ProjectTestId, webhookToUpdate.Id, webhookRequest);
+
+        Assert.IsTrue(result.Description == webhookRequest.Description);
     }
 }
