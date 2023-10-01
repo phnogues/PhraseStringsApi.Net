@@ -6,9 +6,38 @@ internal class KeyService : BaseService, IKeyService
     {
     }
 
-    public async Task<List<Key>?> GetAll(string projectId)
+    public async Task<List<Key>?> GetAll(string projectId, int perPage = 100, int? page = null)
     {
-        return await GetList<List<Key>>($"projects/{projectId}/keys");
+        string url = $"projects/{projectId}/keys?per_page={perPage}";
+
+        List<Key> results = new();
+        int maxPages = 10000;
+
+        if (page.HasValue)
+        {
+            return await GetList<List<Key>>($"{url}&page={page}");
+        }
+        else
+        {
+            // Phrase doesn't return the total number of pages, so we have to guess
+            page = 1;
+
+            while (page < maxPages)
+            {
+                var pageResults = await GetList<List<Key>>($"{url}&page={page}");
+                if (pageResults is not null && pageResults.Any())
+                {
+                    results.AddRange(pageResults);
+                    page++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        return results;
     }
 
     public async Task<Key?> GetById(string projectId, string keyId)

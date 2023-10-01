@@ -2,7 +2,7 @@
 
 public interface IKeyService
 {
-    Task<List<Key>?> GetAll(string projectId);
+    Task<List<Key>?> GetAll(string projectId, int perPage = 100, int? page = null);
 
     Task<Key?> GetById(string projectId, string keyId);
 
