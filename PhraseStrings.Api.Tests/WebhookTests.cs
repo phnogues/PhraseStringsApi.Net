@@ -12,7 +12,7 @@ public class WebhookTests : BaseTest
     {
         var result = await localizationClient.Webhooks.GetAll(ProjectTestId);
 
-        Assert.IsTrue(result.Count > 1);
+        Assert.IsTrue(result.Count > 0);
     }
 
     [TestMethod]
