@@ -40,4 +40,37 @@ public class PhraseClient : ILocalizationClient
     public IKeyService Keys => _keys ??= new KeyService(_httpClient);
 
     public IWebhookService Webhooks => _webhooks ??= new WebhookService(_httpClient);
+
+    public int? NumberOfAllowedRequests
+    {
+        get
+        {
+            lock (LimitVariables.NumberOfAllowedRequestsLock)
+            {
+                return LimitVariables.NumberOfAllowedRequests;
+            }
+        }
+    }
+
+    public int? NumberOfRemainingRequests
+    {
+        get
+        {
+            lock (LimitVariables.NumberOfRemainingRequestsLock)
+            {
+                return LimitVariables.NumberOfRemainingRequests;
+            }
+        }
+    }
+
+    public DateTimeOffset? DateTimeOfLimitReseting
+    {
+        get
+        {
+            lock (LimitVariables.DateTimeOfLimitResetingLock)
+            {
+                return LimitVariables.DateTimeOfLimitReseting;
+            }
+        }
+    }
 }

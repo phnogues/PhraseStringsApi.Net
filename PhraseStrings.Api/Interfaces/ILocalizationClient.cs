@@ -9,5 +9,10 @@ public interface ILocalizationClient
     IKeyService Keys { get; }
 
     IWebhookService Webhooks { get; }
-}
 
+    int? NumberOfAllowedRequests { get; }
+
+    int? NumberOfRemainingRequests { get; }
+
+    DateTimeOffset? DateTimeOfLimitReseting { get; }
+}
