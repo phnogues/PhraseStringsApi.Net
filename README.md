@@ -28,6 +28,7 @@ Supported functions for now :
    - GetByName
    - Search
    - Add 
+   - Delete
 - Webhooks
    - GetAll
    - Add

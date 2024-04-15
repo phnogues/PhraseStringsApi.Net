@@ -11,4 +11,6 @@ public interface IKeyService
     Task<List<SearchKeyResult>?> Search(string projectId, SearchKeyRequest keyRequest);
 
     Task<Key?> Add(string projectId, Key key);
+
+    Task<bool?> Delete(string projectId, string keyId);
 }

@@ -65,4 +65,9 @@ internal class KeyService : BaseService, IKeyService
     {
         return await Post<Key, Key>($"projects/{projectId}/keys", key);
     }
+
+    public async Task<bool?> Delete(string projectId, string keyId)
+    {
+        return await Delete($"projects/{projectId}/keys/{keyId}");
+    }
 }

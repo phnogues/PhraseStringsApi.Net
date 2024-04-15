@@ -10,7 +10,7 @@ internal abstract class BaseService
 {
     private const string XRateLimitLimitHeader = "X-Rate-Limit-Limit";
     private const string XRateLimitRemainingHeader = "X-Rate-Limit-Remaining";
-    private const string XRateLimitResetHeader = "X-Rate-Limit-Reset";    
+    private const string XRateLimitResetHeader = "X-Rate-Limit-Reset";
 
     protected HttpClient HttpClient;
     protected JsonSerializerOptions JsonSerializerOptions;
@@ -83,6 +83,16 @@ internal abstract class BaseService
         HandleError(result);
 
         return await HandleResult<TResult>(result);
+    }
+
+    protected async Task<bool?> Delete(string requestUri)
+    {
+        var result = await HttpClient.DeleteAsync(requestUri);
+
+        ReadLimitVariables(result);
+        HandleError(result);
+
+        return result.IsSuccessStatusCode;
     }
 
     protected bool MatchesWildcard(string data, string wildcard)

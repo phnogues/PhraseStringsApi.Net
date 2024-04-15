@@ -43,8 +43,25 @@ public class KeyTests : BaseTest
         var result = await localizationClient.Keys.Add(ProjectTestId, keyToAdd);
 
         // Delete the key we just added
+        await localizationClient.Keys.Delete(ProjectTestId, result.Id);
 
         Assert.IsTrue(result.Name == keyToAdd.Name);
+    }
+
+    [TestMethod]
+    public async Task Delete_ShouldReturnTrue()
+    {
+        Key keyToAdd = new Key()
+        {
+            Name = "unit_test_to_delete.key",
+            DataType = Enums.DataTypesEnum.String,
+        };
+
+        var keyAdded = await localizationClient.Keys.Add(ProjectTestId, keyToAdd);
+
+        var result = await localizationClient.Keys.Delete(ProjectTestId, keyAdded.Id);
+
+        Assert.IsTrue(result);
     }
 
 }
